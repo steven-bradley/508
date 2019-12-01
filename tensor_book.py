@@ -7,29 +7,40 @@ Original file is located at
     https://colab.research.google.com/drive/1CnTf_C1cyOWbzkcDLkF2crKVe8PdNuAq
 """
 
+# Commented out IPython magic to ensure Python compatibility.
+from __future__ import absolute_import, division, print_function, unicode_literals
+
+# Install TensorFlow
+try:
+  # %tensorflow_version only exists in Colab.
+#   %tensorflow_version 2.x
+except Exception:
+  pass
+
 import tensorflow as tf
 import numpy as np
 
 np.random.seed(420)
-M = np.random.rand(10000, 10000)
-Y = np.random.rand(10000, 1)
+M = np.random.rand(5000, 5000)
+Y = np.random.rand(5000, 1)
 
 # Convert to tensor
 M_t = tf.convert_to_tensor(M)
 M_y = tf.convert_to_tensor(Y)
 
 # Multiply tensors
-out = tf.linalg.matmul(M_t, M_t)
+out = tf.linalg.matmul(M_t, M_t).numpy()
 
 # Find Inverse of tensors
-out = tf.linalg.inv(M_t)
+out = tf.linalg.inv(M_t).numpy()
 
 # Get betas for linear regression
 out = tf.linalg.matmul(
     tf.linalg.inv(tf.linalg.matmul(tf.linalg.inv(M_t), M_t)),
-    tf.linalg.matmul(tf.linalg.transpose(M_t), M_y)
-)
+    tf.linalg.matmul(tf.transpose(M_t), M_y)
+).numpy()
 
 # Get eigenvalues
-out = tf.linalg.eigh(M_t)
+eigv = tf.linalg.eigvalsh(M_t)
+lm = eigv.numpy()
 
