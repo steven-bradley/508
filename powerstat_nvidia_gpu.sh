@@ -1,11 +1,7 @@
 #!/bin/bash
-# Note: W = Watt
-# W# = GPU ID #
-# TOTAL# = GPU ID # TOTAL Wattage
+# W# = GPU ID # TOTAL WATT
 # SMILINE = nvidia-smi output line
 # LOOPS = TOTAL TIMES nvidia-smi was run
-TOTAL1=0
-TOTAL2=0
 W1=0
 W2=0
 SMILINE=0
@@ -30,12 +26,10 @@ while true; do
                 fi
                 ((SMILINE+=1))
         done < <(nvidia-smi)
-        TOTAL1=$(($W1 + $TOTAL1))
-        TOTAL2=$(($W2 + $TOTAL2))
         echo "GPU1 AVERAGE WATT" > ./gpu.log
-        echo "scale=2; $TOTAL1 / $LOOPS" | bc >> ./gpu.log
-        echo "GPU2 AVERAGE WATT" >> ./gpu.log
-        echo "scale=2; $TOTAL2 / $LOOPS" | bc >> ./gpu.log
+        echo "scale=2; $W1/$LOOPS" | bc >> ./gpu.log
+	echo "GPU2 AVERAGE WATT" >> ./gpu.log
+        echo "scale=2; $W2/$LOOPS" | bc >> ./gpu.log
         ((LOOPS+=1))
         ((SMILINE=0))
 done
