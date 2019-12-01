@@ -11,8 +11,8 @@ import torch
 import numpy as np
 
 np.random.seed(420)
-M = np.random.rand(10000, 10000)
-Y = np.random.rand(10000, 1)
+M = np.random.rand(5000, 5000)
+Y = np.random.rand(5000, 1)
 
 # Convert to tensors
 M_t = torch.from_numpy(M)
@@ -32,3 +32,4 @@ out = torch.mm(
 
 # Find eigenvalues and vectors
 out = torch.eig(M_t)
+
