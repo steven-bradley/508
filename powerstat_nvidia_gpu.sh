@@ -30,6 +30,7 @@ while true; do
         echo "scale=2; $W1/$LOOPS" | bc >> ./gpu.log
 	echo "GPU2 AVERAGE WATT" >> ./gpu.log
         echo "scale=2; $W2/$LOOPS" | bc >> ./gpu.log
+	echo "Number of Loops: " $LOOPS >> ./gpu.log
         ((LOOPS+=1))
         ((SMILINE=0))
 done
