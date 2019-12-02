@@ -10,9 +10,7 @@ while getopts 'r:p:g' OPTION; do
     p)
       nohup powerstat -R -z >./power.log &
       pid=$!
-
-      python3 $OPTARG
-
+      time /usr/local/bin/python3 $OPTARG
       kill $pid	
       wait $!
       ;;
