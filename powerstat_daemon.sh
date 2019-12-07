@@ -8,7 +8,7 @@ while getopts 'r:p:g' OPTION; do
       echo "Add R-Script Logic here"
       ;;
     p)
-      nohup powerstat -R -z >./power.log &
+      nohup powerstat -R -z -H 1 380 >./power.log &
       pid=$!
       time /usr/local/bin/python3 $OPTARG
       kill $pid	
